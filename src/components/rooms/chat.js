@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMessages } from '../actions';
+import { getMessages, getRoomInfo } from '../../actions';
 
 class Chat extends Component {
     componentDidMount() {
-        this.dbRef = this.props.getMessages();
+        const {getRoomInfo, match: {params}} = this.props;
+
+        this.dbRef = getRoomInfo(params.room_id);
 
     }
 
@@ -40,5 +42,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    getMessages: getMessages
+    getMessages,
+    getRoomInfo
 })(Chat);
